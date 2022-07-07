@@ -21,13 +21,6 @@ app.autodiscover_tasks()
 
 log = logging.getLogger('glisti.celery')
 
-
-@app.task
-def debug_task(a, b):
-    log.info('gay')
-    return a + b
-
-
 app.conf.beat_schedule = {
     'get-users-every-30-sec': {
         'task': 'tasks.get-users',
