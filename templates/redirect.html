@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка!</title>
+     <link rel="icon" href="{% static 'img/logo.svg'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/redirect.min.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="message" style="max-width: 900px;">{{ error }}</div>
+        <img src="{% static 'img/leafs.png' %}" class="leafs">
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Колесо фортуны</title>
+    <link rel="icon" href="{% static 'img/logo.svg'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    <script defer="defer" src="{% static 'js/TweenMax.min.js' %}"></script>
+    <script defer="defer" src="{% static 'js/Winwheel.min.js' %}"></script>
+    <script>
+        const email = '{{ user.email }}';
+        const key = '{{ user.code }}';
+    </script>
+    <script defer="defer" src="{% static 'js/script.js' %}"></script>
+    <style type="text/css">
+        .prize__info {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            background: #C4E46D;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border: 2px solid #8BA93B;
+        }
+        .prize__info.active {
+            opacity: 1;
+        }
+        @media (max-width: 576px) {
+            .prize__info {
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo__wrapper">
+        <img src="{% static 'img/logo.png' %}" alt="logo">
+    </div>
+    <h1 class="title">ЛЕТНЕЕ КОЛЕСО ЗДОРОВЬЯ</h1>
+    <h1 class="title-mob">ЛЕТНЕЕ<br>КОЛЕСО ЗДОРОВЬЯ</h1>
+    <p class="subtitle">Тот, кто забодится о своём здоровье - всегда выигрывает!</p>
+    <p class="subtitle_s">Крутите колесо и получайте гарантированный подарок</p>
+    <div class="wheel__wrapper">
+        <canvas id="canvas" width="850" height="850">Canvas not supported, use another browser.</canvas>
+        <img src="{% static 'img/arrow-prize.svg' %}" class="wheel__arrow">
+        <img src="{% static 'img/rose.png' %}" class="wheel__rose">
+        <img src="{% static 'img/rose-mob.png' %}" class="wheel__rose-mob">
+        <img src="{% static 'img/leafs.png' %}" class="wheel__leafs">
+        <img src="{% static 'img/leaf-mob.png' %}" class="wheel__mob">
+    </div>
+    <div class="spins">Количество оставшихся попыток: <span>{{ user.rolls }}</span></div>
+    <div class="wheel__button">
+        <button>Крутить колесо</button>
+        <div class="wheel__leaf">
+            <img src="{% static 'img/leaf-l.png' %}" class="leaf-l">
+            <img src="{% static 'img/leaf-r.png' %}" class="leaf-r">
+            <div class="wheel__oval"></div>
+        </div>
+    </div>
+    <h2 class="title">Написать в Службу заботы</h2>
+    <form class="form" action="?email={{ user.email }}&key={{ key }}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="text" required placeholder="Ваш вопрос...">
+        <button class="question-form">Отправить</button>
+        <img src="{% static 'img/q-left.png' %}" class="q-left">
+        <img src="{% static 'img/q-right.png' %}" class="q-right">
+    </form>
+    <div class="info__wrapper">
+        <div class="info__item">
+            <div class="info__circle">
+                <img src="{% static 'img/icon-p.svg' %}">
+            </div>
+            <p>ИП Лебедь Е.В. ОГРН 319732500060134 ИНН 732894407752</p>
+        </div>
+        <div class="info__item">
+            <div class="info__circle">
+                <img src="{% static 'img/icon-m.svg' %}">
+            </div>
+            <p>info@katerinaforma.com @irisha7427</p>
+        </div>
+        <div class="info__item">
+            <div class="info__circle">
+                <img src="{% static 'img/icon-i.svg' %}">
+            </div>
+            <p>Пользовательское соглашение Политика конфиденциальности</p>
+        </div>
+    </div>
+    <div class="prize__info">
+        <p class="prize">Поздравляем! Вы выйграли: <span>приз</span></p>
+    </div>
+    <footer class="footer">©2022</footer>
+</body>
+</html>
